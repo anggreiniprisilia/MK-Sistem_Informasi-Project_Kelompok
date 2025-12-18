@@ -10,7 +10,12 @@ class PengaduanController extends Controller
 {
     public function index()
     {
-        return view('pengaduan.index');
+        // Ambil 20 pengaduan terbaru untuk tracking publik
+        $pengaduans = Pengaduan::orderBy('created_at', 'desc')
+            ->take(20)
+            ->get();
+        
+        return view('pengaduan.index', compact('pengaduans'));
     }
 
     public function store(Request $request)
